@@ -144,7 +144,7 @@ public class MainClass {
         petrNaumov.setAddress(address9);
         petrNaumov.setPassport(passport7);
         petrNaumov.setPosition("Accountant");
-        petrNaumov.setSalary(BigDecimal.valueOf(1500));
+        petrNaumov.setSalary(BigDecimal.valueOf(2500));
 
         Project economApartment = new Project("Econom Apartment", LocalDate.of(2022, 6, 1));
         economApartment.setPrice(BigDecimal.valueOf(45000));
