@@ -54,6 +54,10 @@ public class MainClass {
         passport6.setPassportNumber(456098);
         LocalDate dateOfIssuePassport6 = LocalDate.of(2016, 11, 10);
 
+        Passport passport7 = new Passport();
+        passport7.setPassportNumber(344098);
+        LocalDate dateOfIssuePassport7 = LocalDate.of(2015, 10, 11);
+
         Address address1 = new Address();
         address1.setCity("Minsk");
         address1.setStreet("Kosmonavtov");
@@ -94,6 +98,11 @@ public class MainClass {
         address8.setStreet("Slobodskaya");
         address8.setHouseNumber(11);
 
+        Address address9 = new Address();
+        address9.setCity("Minsk");
+        address9.setStreet("Nemiga");
+        address9.setHouseNumber(22);
+
         Customer customer1 = new Customer("Ivan", "Petrov", LocalDate.of(1987, 6, 20));
         customer1.setAddress(address4);
         customer1.setPassport(passport1);
@@ -130,6 +139,12 @@ public class MainClass {
         olegPetrov.setPassport(passport6);
         olegPetrov.setPosition("Manager");
         olegPetrov.setSalary(BigDecimal.valueOf(1500));
+
+        Employee petrNaumov = new Employee("Petr", "Naumov", LocalDate.of(1961, 5, 7));
+        petrNaumov.setAddress(address9);
+        petrNaumov.setPassport(passport7);
+        petrNaumov.setPosition("Accountant");
+        petrNaumov.setSalary(BigDecimal.valueOf(1500));
 
         Project economApartment = new Project("Econom Apartment", LocalDate.of(2022, 6, 1));
         economApartment.setPrice(BigDecimal.valueOf(45000));
