@@ -165,6 +165,11 @@ public class MainClass {
         whiteHouse.setSquare(220);
         whiteHouse.setNumberOfRooms(7);
 
+        Project greenHouse = new Project("Green House", LocalDate.of(2022, 1, 25));
+        whiteHouse.setPrice(BigDecimal.valueOf(250000));
+        whiteHouse.setSquare(200);
+        whiteHouse.setNumberOfRooms(6);
+
         BuildingMaterial concrete = new BuildingMaterial("Concrete");
         concrete.setQuantity(200);
 
@@ -207,7 +212,7 @@ public class MainClass {
         company1.setCustomers(companyCustomers);
         Employee[] companyEmployees = {sergeyJukov, tatianaBelay};
         company1.setEmployees(companyEmployees);
-        Project[] companyProjects = {economApartment, standardApartment, premiumApartment, penthouse};
+        Project[] companyProjects = {economApartment, standardApartment, premiumApartment, penthouse, greenHouse};
         company1.setProjects(companyProjects);
         Source[] companyBuildingMaterials = {concrete, wood};
         company1.setSources(companyBuildingMaterials);
