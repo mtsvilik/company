@@ -166,9 +166,9 @@ public class MainClass {
         whiteHouse.setNumberOfRooms(7);
 
         Project greenHouse = new Project("Green House", LocalDate.of(2022, 1, 25));
-        whiteHouse.setPrice(BigDecimal.valueOf(250000));
-        whiteHouse.setSquare(200);
-        whiteHouse.setNumberOfRooms(6);
+        greenHouse.setPrice(BigDecimal.valueOf(250000));
+        greenHouse.setSquare(200);
+        greenHouse.setNumberOfRooms(6);
 
         BuildingMaterial concrete = new BuildingMaterial("Concrete");
         concrete.setQuantity(200);
