@@ -191,6 +191,9 @@ public class MainClass {
         BuildingMaterial wood = new BuildingMaterial("Wood");
         wood.setQuantity(1000);
 
+        BuildingMaterial metal = new BuildingMaterial("Metal");
+        metal.setQuantity(500);
+
         Source parquet = new BuildingMaterial("Parquet");
 
         Equipment craneTower = new Equipment("Crane tower", LocalDate.of(2021, 10, 11));
