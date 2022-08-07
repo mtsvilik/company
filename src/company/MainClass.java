@@ -125,7 +125,7 @@ public class MainClass {
         Employee sergeyJukov = new Employee("Sergey", "Jukov", LocalDate.of(1988, 12, 1));
         sergeyJukov.setAddress(address2);
         sergeyJukov.setPassport(passport3);
-        sergeyJukov.setPosition("Manager");
+        sergeyJukov.setPosition("Advertising manager");
         sergeyJukov.setSalary(BigDecimal.valueOf(2000));
 
         Employee tatianaBelay = new Employee("Tatiana", "Belay", LocalDate.of(1970, 10, 3));
