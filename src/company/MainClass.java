@@ -171,6 +171,8 @@ public class MainClass {
         BuildingMaterial wood = new BuildingMaterial("Wood");
         wood.setQuantity(1000);
 
+        Source man3110 = new Vehicle("MAN 3110", "V2", LocalDate.of(2015, 1, 31));
+
         Source parquet = new BuildingMaterial("Parquet");
 
         Equipment craneTower = new Equipment("Crane tower", LocalDate.of(2021, 10, 11));
