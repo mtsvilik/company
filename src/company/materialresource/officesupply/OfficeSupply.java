@@ -1,5 +1,7 @@
 package company.materialresource.officesupply;
 
+import java.util.Objects;
+
 public class OfficeSupply {
 
     private String title;
@@ -23,5 +25,26 @@ public class OfficeSupply {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OfficeSupply that = (OfficeSupply) o;
+        return quantity == that.quantity && Objects.equals(title, that.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, quantity);
+    }
+
+    @Override
+    public String toString() {
+        return "OfficeSupply{" +
+                "title='" + title + '\'' +
+                ", quantity=" + quantity +
+                '}';
     }
 }

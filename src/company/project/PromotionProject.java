@@ -8,22 +8,27 @@ import java.util.List;
 
 public class PromotionProject<M extends BuildingMaterial, S extends OfficeSupply> {
 
-    private String projectTitle;
+    private String title;
     private Integer square;
     private BigDecimal price;
     private List<M> materials;
     private List<S> supplies;
 
-    public PromotionProject(String projectTitle) {
-        this.projectTitle = projectTitle;
+    public PromotionProject(String title) {
+        this.title = title;
     }
 
-    public String getProjectTitle() {
-        return projectTitle;
+    public BigDecimal countSquareMeterCost(Integer square, BigDecimal price) {
+        BigDecimal bigDecimal = new BigDecimal(square);
+        return price.divide(bigDecimal);
     }
 
-    public void setProjectTitle(String projectTitle) {
-        this.projectTitle = projectTitle;
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Integer getSquare() {

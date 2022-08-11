@@ -5,10 +5,7 @@ import company.company.CompanyUtils;
 import company.company.ConstructionCompany;
 import company.company.InvestConstructionCompany;
 import company.exception.InvalidTypeException;
-import company.human.Customer;
-import company.human.Employee;
-import company.human.Human;
-import company.human.IMove;
+import company.human.*;
 import company.info.*;
 import company.investment.IExtend;
 import company.investment.Investment;
@@ -16,20 +13,18 @@ import company.materialresource.*;
 import company.materialresource.material.Block;
 import company.materialresource.material.Brick;
 import company.materialresource.material.Module;
-import company.materialresource.officesupply.OfficeSupply;
 import company.materialresource.officesupply.Paper;
 import company.materialresource.officesupply.Pen;
 import company.materialresource.officesupply.Stapler;
 import company.project.IRun;
-import company.project.PromotionProject;
 import company.project.Project;
+import company.project.PromotionProject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class MainClass {
 
@@ -42,31 +37,31 @@ public class MainClass {
     public static void main(String[] args) {
         Passport passport1 = new Passport();
         passport1.setPassportNumber(555444);
-        LocalDate dateOfIssuePassport1 = LocalDate.of(2012, 10, 10);
+        passport1.setDateOfIssue(LocalDate.of(2012, 10, 10));
 
         Passport passport2 = new Passport();
         passport2.setPassportNumber(345621);
-        LocalDate dateOfIssuePassport2 = LocalDate.of(2020, 2, 13);
+        passport2.setDateOfIssue(LocalDate.of(2020, 2, 13));
 
         Passport passport3 = new Passport();
         passport3.setPassportNumber(567987);
-        LocalDate dateOfIssuePassport3 = LocalDate.of(2011, 4, 9);
+        passport3.setDateOfIssue(LocalDate.of(2011, 4, 9));
 
         Passport passport4 = new Passport();
         passport4.setPassportNumber(677566);
-        LocalDate dateOfIssuePassport4 = LocalDate.of(2019, 11, 10);
+        passport4.setDateOfIssue(LocalDate.of(2019, 11, 10));
 
         Passport passport5 = new Passport();
         passport5.setPassportNumber(678345);
-        LocalDate dateOfIssuePassport5 = LocalDate.of(2020, 1, 10);
+        passport5.setDateOfIssue(LocalDate.of(2020, 1, 10));
 
         Passport passport6 = new Passport();
         passport6.setPassportNumber(456098);
-        LocalDate dateOfIssuePassport6 = LocalDate.of(2016, 11, 10);
+        passport6.setDateOfIssue(LocalDate.of(2016, 11, 10));
 
         Passport passport7 = new Passport();
         passport7.setPassportNumber(344098);
-        LocalDate dateOfIssuePassport7 = LocalDate.of(2015, 10, 11);
+        passport7.setDateOfIssue(LocalDate.of(2015, 10, 11));
 
         Address address1 = new Address();
         address1.setCity("Minsk");
@@ -84,14 +79,14 @@ public class MainClass {
         address3.setHouseNumber(5);
 
         Address address4 = new Address();
-        address3.setCity("Minsk");
-        address3.setStreet("Kolasa");
-        address3.setHouseNumber(76);
+        address4.setCity("Minsk");
+        address4.setStreet("Kolasa");
+        address4.setHouseNumber(76);
 
         Address address5 = new Address();
-        address3.setCity("Minsk");
-        address3.setStreet("Novaya");
-        address3.setHouseNumber(23);
+        address5.setCity("Minsk");
+        address5.setStreet("Novaya");
+        address5.setHouseNumber(23);
 
         Address address6 = new Address();
         address6.setCity("Minsk");
@@ -249,7 +244,7 @@ public class MainClass {
         companyEmployees.add(sergeyJukov);
         companyEmployees.add(tatianaBelay);
         company1.setEmployees(companyEmployees);
-        List<Project> companyProjects =new ArrayList<>();
+        List<Project> companyProjects = new ArrayList<>();
         companyProjects.add(economApartment);
         companyProjects.add(standardApartment);
         companyProjects.add(premiumApartment);
@@ -279,7 +274,6 @@ public class MainClass {
         Resource information = new Resource("Information resources");
         Resource human = new Resource("Human resources");
         Resource technical = new Resource("Technical resources");
-
 
         InvestConstructionCompany company2 = new InvestConstructionCompany("Invest Company", LocalDate.of(2011, 10, 10));
         company2.setAddress(address6);
@@ -362,7 +356,7 @@ public class MainClass {
         } catch (InvalidTypeException e) {
             LOGGER.error(e.getMessage(), e);
         } finally {
-            if(firstResource != null){
+            if (firstResource != null) {
                 firstResource.close();
             }
         }
@@ -413,18 +407,55 @@ public class MainClass {
         modernProject.setPrice(BigDecimal.valueOf(300));
         modernProject.setMaterials(blocks);
         modernProject.setSupplies(staplers);
+        LOGGER.info("Square meter of project {} is {}", modernProject.getTitle(), modernProject.countSquareMeterCost(modernProject.getSquare(), modernProject.getPrice()));
 
         PromotionProject<Module, Paper> moduleProject = new PromotionProject<>("Module Project");
-        moduleProject.setSquare(120);
-        moduleProject.setPrice(BigDecimal.valueOf(150));
+        moduleProject.setSquare(200);
+        moduleProject.setPrice(BigDecimal.valueOf(120));
         moduleProject.setMaterials(modules);
         moduleProject.setSupplies(papers);
+        LOGGER.info("Square meter of project {} is {}", moduleProject.getTitle(), moduleProject.countSquareMeterCost(moduleProject.getSquare(), moduleProject.getPrice()));
 
         PromotionProject<Brick, Pen> classicProject = new PromotionProject<>("Classic Project");
         classicProject.setSquare(320);
         classicProject.setPrice(BigDecimal.valueOf(400));
         classicProject.setMaterials(bricks);
         classicProject.setSupplies(pens);
+        LOGGER.info("Square meter of project {} is {}", classicProject.getTitle(), classicProject.countSquareMeterCost(classicProject.getSquare(), classicProject.getPrice()));
+
+        LOGGER.info("---------------------------------");
+
+        Driver driver1 = new Driver("Anatoliy", "Ivanov", LocalDate.of(1965, 12, 3));
+        driver1.setTypeOfLicense("D");
+
+        Driver driver2 = new Driver("Sergey", "Petrov", LocalDate.of(1980, 11, 2));
+        driver2.setTypeOfLicense("B");
+
+        Driver driver3 = new Driver("Anton", "Sidorov", LocalDate.of(1985, 9, 22));
+        driver3.setTypeOfLicense("C");
+
+        Set<Human> drivers = new HashSet<>();
+        drivers.add(driver1);
+        drivers.add(driver2);
+        drivers.add(driver3);
+        LOGGER.info("Set size is {}", drivers.size());
+        for (Human driver : drivers) {
+            LOGGER.info("Information about the driver: {} {} {} ", driver.getFirstName(), driver.getLastName(), driver.getDob());
+        }
+
+        LOGGER.info("---------------------------------");
+
+        Map<Passport, Customer> info = new HashMap<>();
+        info.put(passport1, customer1);
+        info.put(passport2, customer2);
+        info.put(passport5, customer3);
+        Customer second = info.get(passport2);
+        LOGGER.info(second);
+        for (Map.Entry<Passport, Customer> element : info.entrySet()) {
+            LOGGER.info("Key: {}, Value: {}", element.getKey(), element.getValue());
+        }
+
+        LOGGER.info("---------------------------------");
 
         LOGGER.info("Customer 1 options: ");
         List<Project> result = CompanyUtils.selectProjects(customer1.getBudget(), company1);
