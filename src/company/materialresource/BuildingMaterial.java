@@ -16,6 +16,9 @@ public class BuildingMaterial extends Source implements IUse {
         super(title);
     }
 
+    public BuildingMaterial() {
+    }
+
     @Override
     public void useSource() {
         LOGGER.info("Concrete is used for the construction of the project");
@@ -41,13 +44,14 @@ public class BuildingMaterial extends Source implements IUse {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         BuildingMaterial that = (BuildingMaterial) o;
         return quantity == that.quantity;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(quantity);
+        return Objects.hash(super.hashCode(), quantity);
     }
 
     @Override

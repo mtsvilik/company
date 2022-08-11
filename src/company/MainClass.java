@@ -5,21 +5,26 @@ import company.company.CompanyUtils;
 import company.company.ConstructionCompany;
 import company.company.InvestConstructionCompany;
 import company.exception.InvalidTypeException;
-import company.human.Customer;
-import company.human.Employee;
-import company.human.Human;
-import company.human.IMove;
+import company.human.*;
 import company.info.*;
 import company.investment.IExtend;
 import company.investment.Investment;
 import company.materialresource.*;
+import company.materialresource.material.Block;
+import company.materialresource.material.Brick;
+import company.materialresource.material.Module;
+import company.materialresource.officesupply.Paper;
+import company.materialresource.officesupply.Pen;
+import company.materialresource.officesupply.Stapler;
 import company.project.IRun;
 import company.project.Project;
+import company.project.PromotionProject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.*;
 
 public class MainClass {
 
@@ -32,31 +37,31 @@ public class MainClass {
     public static void main(String[] args) {
         Passport passport1 = new Passport();
         passport1.setPassportNumber(555444);
-        LocalDate dateOfIssuePassport1 = LocalDate.of(2012, 10, 10);
+        passport1.setDateOfIssue(LocalDate.of(2012, 10, 10));
 
         Passport passport2 = new Passport();
         passport2.setPassportNumber(345621);
-        LocalDate dateOfIssuePassport2 = LocalDate.of(2020, 2, 13);
+        passport2.setDateOfIssue(LocalDate.of(2020, 2, 13));
 
         Passport passport3 = new Passport();
         passport3.setPassportNumber(567987);
-        LocalDate dateOfIssuePassport3 = LocalDate.of(2011, 4, 9);
+        passport3.setDateOfIssue(LocalDate.of(2011, 4, 9));
 
         Passport passport4 = new Passport();
         passport4.setPassportNumber(677566);
-        LocalDate dateOfIssuePassport4 = LocalDate.of(2019, 11, 10);
+        passport4.setDateOfIssue(LocalDate.of(2019, 11, 10));
 
         Passport passport5 = new Passport();
         passport5.setPassportNumber(678345);
-        LocalDate dateOfIssuePassport5 = LocalDate.of(2020, 1, 10);
+        passport5.setDateOfIssue(LocalDate.of(2020, 1, 10));
 
         Passport passport6 = new Passport();
         passport6.setPassportNumber(456098);
-        LocalDate dateOfIssuePassport6 = LocalDate.of(2016, 11, 10);
+        passport6.setDateOfIssue(LocalDate.of(2016, 11, 10));
 
         Passport passport7 = new Passport();
         passport7.setPassportNumber(344098);
-        LocalDate dateOfIssuePassport7 = LocalDate.of(2015, 10, 11);
+        passport7.setDateOfIssue(LocalDate.of(2015, 10, 11));
 
         Address address1 = new Address();
         address1.setCity("Minsk");
@@ -74,14 +79,14 @@ public class MainClass {
         address3.setHouseNumber(5);
 
         Address address4 = new Address();
-        address3.setCity("Minsk");
-        address3.setStreet("Kolasa");
-        address3.setHouseNumber(76);
+        address4.setCity("Minsk");
+        address4.setStreet("Kolasa");
+        address4.setHouseNumber(76);
 
         Address address5 = new Address();
-        address3.setCity("Minsk");
-        address3.setStreet("Novaya");
-        address3.setHouseNumber(23);
+        address5.setCity("Minsk");
+        address5.setStreet("Novaya");
+        address5.setHouseNumber(23);
 
         Address address6 = new Address();
         address6.setCity("Minsk");
@@ -194,6 +199,8 @@ public class MainClass {
         BuildingMaterial metal = new BuildingMaterial("Metal");
         metal.setQuantity(500);
 
+        Source man3110 = new Vehicle("MAN 3110", "V2", LocalDate.of(2015, 1, 31));
+
         Source parquet = new BuildingMaterial("Parquet");
 
         Equipment craneTower = new Equipment("Crane tower", LocalDate.of(2021, 10, 11));
@@ -208,7 +215,10 @@ public class MainClass {
 
         Source bmw = new Vehicle("BMW 7", "V8", LocalDate.of(2022, 10, 15));
 
-        Source[] source1 = {bmw, mixerConcrete, concrete};
+        List<Source> source1 = new ArrayList<>();
+        source1.add(bmw);
+        source1.add(mixerConcrete);
+        source1.add(concrete);
         CompanyUtils.showInformation(source1);
 
         Account companyAccount1 = new BankAccount(123474353789023L, LocalDate.of(2022, 7, 24), "Alfa Bank");
@@ -226,17 +236,32 @@ public class MainClass {
         ConstructionCompany company1 = new InvestConstructionCompany("KMK Company", LocalDate.of(2010, 01, 12));
         company1.setAddress(address1);
         company1.setAccount(companyAccount1);
-        Customer[] companyCustomers = {customer1, customer2};
+        List<Customer> companyCustomers = new ArrayList<>();
+        companyCustomers.add(customer1);
+        companyCustomers.add(customer2);
         company1.setCustomers(companyCustomers);
-        Employee[] companyEmployees = {sergeyJukov, tatianaBelay};
+        List<Employee> companyEmployees = new ArrayList<>();
+        companyEmployees.add(sergeyJukov);
+        companyEmployees.add(tatianaBelay);
         company1.setEmployees(companyEmployees);
-        Project[] companyProjects = {economApartment, standardApartment, premiumApartment, penthouse, greenHouse};
+        List<Project> companyProjects = new ArrayList<>();
+        companyProjects.add(economApartment);
+        companyProjects.add(standardApartment);
+        companyProjects.add(premiumApartment);
+        companyProjects.add(penthouse);
+        companyProjects.add(greenHouse);
         company1.setProjects(companyProjects);
-        Source[] companyBuildingMaterials = {concrete, wood};
+        List<Source> companyBuildingMaterials = new ArrayList<>();
+        companyBuildingMaterials.add(concrete);
+        companyBuildingMaterials.add(wood);
         company1.setSources(companyBuildingMaterials);
-        Source[] companyEquipments = {craneTower, mixerConcrete};
+        List<Source> companyEquipments = new ArrayList<>();
+        companyEquipments.add(craneTower);
+        companyEquipments.add(mixerConcrete);
         company1.setSources(companyEquipments);
-        Source[] companyVehicles = {mercedesBenz, volkswagen};
+        List<Source> companyVehicles = new ArrayList<>();
+        companyVehicles.add(mercedesBenz);
+        companyVehicles.add(volkswagen);
         company1.setSources(companyVehicles);
         company1.showCompanyName();
         company1.showCompanyName(company1);
@@ -250,23 +275,34 @@ public class MainClass {
         Resource human = new Resource("Human resources");
         Resource technical = new Resource("Technical resources");
 
-
         InvestConstructionCompany company2 = new InvestConstructionCompany("Invest Company", LocalDate.of(2011, 10, 10));
         company2.setAddress(address6);
+        company2.setAccount(companyAccount2);
         company2.setAccount(investCompanyCardAccount);
-        Customer[] investCompanyCustomers = {customer1, customer3};
+        List<Customer> investCompanyCustomers = new ArrayList<>();
+        investCompanyCustomers.add(customer1);
+        investCompanyCustomers.add(customer3);
         company2.setCustomers(investCompanyCustomers);
-        Employee[] investCompanyEmployees = {olegPetrov};
+        List<Employee> investCompanyEmployees = new ArrayList<>();
+        investCompanyEmployees.add(olegPetrov);
         company2.setEmployees(investCompanyEmployees);
-        Project[] investCompanyProjects = {sunnyHouse, whiteHouse};
+        List<Project> investCompanyProjects = new ArrayList<>();
+        investCompanyProjects.add(sunnyHouse);
+        investCompanyProjects.add(whiteHouse);
         company2.setProjects(investCompanyProjects);
-        Source[] investCompanyBuildingMaterials = {parquet};
+        List<Source> investCompanyBuildingMaterials = new ArrayList<>();
+        investCompanyBuildingMaterials.add(parquet);
         company2.setSources(investCompanyBuildingMaterials);
-        Source[] investCompanyEquipments = {generator};
+        List<Source> investCompanyEquipments = new ArrayList<>();
+        investCompanyEquipments.add(generator);
         company2.setSources(investCompanyEquipments);
-        Source[] investCompanyVehicles = {bmw};
+        List<Source> investCompanyVehicles = new ArrayList<>();
+        investCompanyVehicles.add(bmw);
+        investCompanyVehicles.add(man3110);
         company2.setSources(investCompanyVehicles);
-        Investment[] investments = {stocks, deposits};
+        List<Investment> investments = new ArrayList<>();
+        investments.add(stocks);
+        investments.add(deposits);
         company2.setInvestments(investments);
         LOGGER.info("Tne number of investments: " + company2.countInvestments(investments));
         LOGGER.info(company2.countAllBudgets(investCompanyCustomers));
@@ -320,7 +356,7 @@ public class MainClass {
         } catch (InvalidTypeException e) {
             LOGGER.error(e.getMessage(), e);
         } finally {
-            if(firstResource != null){
+            if (firstResource != null) {
                 firstResource.close();
             }
         }
@@ -331,22 +367,104 @@ public class MainClass {
             LOGGER.info("Resource closed");
         }
 
-        try {
-            CompanyUtils.selectProjects(company2);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            LOGGER.error(e.getMessage(), e);
+        LOGGER.info("---------------------------------");
+
+        Block block = new Block("Silicate block");
+        block.setSize(15);
+        List<Block> blocks = new ArrayList<>();
+        blocks.add(block);
+
+        Brick brick = new Brick("Ceramic brick");
+        brick.setColor("Red");
+        List<Brick> bricks = new ArrayList<>();
+        bricks.add(brick);
+
+        Module module = new Module("Basic module");
+        module.setShape("Square");
+        List<Module> modules = new ArrayList<>();
+        modules.add(module);
+
+        Stapler stapler = new Stapler("MAPED stapler");
+        stapler.setSize("Big");
+        stapler.setQuantity(3);
+        List<Stapler> staplers = new ArrayList<>();
+        staplers.add(stapler);
+
+        Paper paper = new Paper("DELROY paper");
+        paper.setClassOfPaper("A");
+        paper.setQuantity(4);
+        List<Paper> papers = new ArrayList<>();
+        papers.add(paper);
+
+        Pen pen = new Pen("Erich Krause pen");
+        pen.setColor("Black");
+        pen.setQuantity(20);
+        List<Pen> pens = new ArrayList<>();
+        pens.add(pen);
+
+        PromotionProject<Block, Stapler> modernProject = new PromotionProject<>("Modern Project");
+        modernProject.setSquare(250);
+        modernProject.setPrice(BigDecimal.valueOf(300));
+        modernProject.setMaterials(blocks);
+        modernProject.setSupplies(staplers);
+        LOGGER.info("Square meter of project {} is {}", modernProject.getTitle(), modernProject.countSquareMeterCost(modernProject.getSquare(), modernProject.getPrice()));
+
+        PromotionProject<Module, Paper> moduleProject = new PromotionProject<>("Module Project");
+        moduleProject.setSquare(200);
+        moduleProject.setPrice(BigDecimal.valueOf(120));
+        moduleProject.setMaterials(modules);
+        moduleProject.setSupplies(papers);
+        LOGGER.info("Square meter of project {} is {}", moduleProject.getTitle(), moduleProject.countSquareMeterCost(moduleProject.getSquare(), moduleProject.getPrice()));
+
+        PromotionProject<Brick, Pen> classicProject = new PromotionProject<>("Classic Project");
+        classicProject.setSquare(320);
+        classicProject.setPrice(BigDecimal.valueOf(400));
+        classicProject.setMaterials(bricks);
+        classicProject.setSupplies(pens);
+        LOGGER.info("Square meter of project {} is {}", classicProject.getTitle(), classicProject.countSquareMeterCost(classicProject.getSquare(), classicProject.getPrice()));
+
+        LOGGER.info("---------------------------------");
+
+        Driver driver1 = new Driver("Anatoliy", "Ivanov", LocalDate.of(1965, 12, 3));
+        driver1.setTypeOfLicense("D");
+
+        Driver driver2 = new Driver("Sergey", "Petrov", LocalDate.of(1980, 11, 2));
+        driver2.setTypeOfLicense("B");
+
+        Driver driver3 = new Driver("Anton", "Sidorov", LocalDate.of(1985, 9, 22));
+        driver3.setTypeOfLicense("C");
+
+        Set<Human> drivers = new HashSet<>();
+        drivers.add(driver1);
+        drivers.add(driver2);
+        drivers.add(driver3);
+        LOGGER.info("Set size is {}", drivers.size());
+        for (Human driver : drivers) {
+            LOGGER.info("Information about the driver: {} {} {} ", driver.getFirstName(), driver.getLastName(), driver.getDob());
+        }
+
+        LOGGER.info("---------------------------------");
+
+        Map<Passport, Customer> info = new HashMap<>();
+        info.put(passport1, customer1);
+        info.put(passport2, customer2);
+        info.put(passport5, customer3);
+        Customer second = info.get(passport2);
+        LOGGER.info(second);
+        for (Map.Entry<Passport, Customer> element : info.entrySet()) {
+            LOGGER.info("Key: {}, Value: {}", element.getKey(), element.getValue());
         }
 
         LOGGER.info("---------------------------------");
 
         LOGGER.info("Customer 1 options: ");
-        Project[] result = CompanyUtils.selectProjects(customer1.getBudget(), company1);
+        List<Project> result = CompanyUtils.selectProjects(customer1.getBudget(), company1);
         for (Project project : result) {
             LOGGER.info(project.getProjectTitle());
         }
 
         LOGGER.info("Customer 2 options: ");
-        Project[] result2 = CompanyUtils.selectProjects(customer2.getBudget(), company1);
+        List<Project> result2 = CompanyUtils.selectProjects(customer2.getBudget(), company1);
         for (Project project : result2) {
             LOGGER.info(project.getProjectTitle());
         }

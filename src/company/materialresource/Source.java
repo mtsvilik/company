@@ -15,6 +15,9 @@ public class Source {
         this.title = title;
     }
 
+    public Source() {
+    }
+
     public void show() {
         LOGGER.info("Sources: " + getTitle());
     }
@@ -23,7 +26,7 @@ public class Source {
         return title;
     }
 
-    public void seTitle(String title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
@@ -43,7 +46,7 @@ public class Source {
     @Override
     public String toString() {
         return "Source{" +
-                "sourceTitle='" + title + '\'' +
+                "title='" + title + '\'' +
                 '}';
     }
 }
