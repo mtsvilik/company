@@ -9,16 +9,17 @@ import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 public abstract class ConstructionCompany extends Company {
 
     private static final Logger LOGGER = LogManager.getLogger(ConstructionCompany.class);
 
-    private Customer[] customers;
-    private Employee[] employees;
-    private Project[] projects;
-    private Source[] sources;
+    private List<Customer> customers;
+    private List<Employee> employees;
+    private List<Project> projects;
+    private List<Source> sources;
 
     public ConstructionCompany(String name, LocalDate foundationDate) {
         super(name, foundationDate);
@@ -33,37 +34,37 @@ public abstract class ConstructionCompany extends Company {
         LOGGER.info("Some company name");
     }
 
-    public abstract BigDecimal countAllBudgets(Customer[] customers);
+    public abstract BigDecimal countAllBudgets(List<Customer> customers);
 
-    public Customer[] getCustomers() {
-        return customers;
-    }
-
-    public void setCustomers(Customer[] customers) {
+    public void setCustomers(List<Customer> customers) {
         this.customers = customers;
     }
 
-    public Employee[] getEmployees() {
+    public List<Customer> getCustomers() {
+        return customers;
+    }
+
+    public List<Employee> getEmployees() {
         return employees;
     }
 
-    public void setEmployees(Employee[] employees) {
+    public void setEmployees(List<Employee> employees) {
         this.employees = employees;
     }
 
-    public Project[] getProjects() {
+    public List<Project> getProjects() {
         return projects;
     }
 
-    public void setProjects(Project[] projects) {
+    public void setProjects(List<Project> projects) {
         this.projects = projects;
     }
 
-    public Source[] getSources() {
+    public List<Source> getSources() {
         return sources;
     }
 
-    public void setSources(Source[] sources) {
+    public void setSources(List<Source> sources) {
         this.sources = sources;
     }
 
@@ -73,26 +74,21 @@ public abstract class ConstructionCompany extends Company {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         ConstructionCompany that = (ConstructionCompany) o;
-        return Arrays.equals(customers, that.customers) && Arrays.equals(employees, that.employees) && Arrays.equals(projects, that.projects) && Arrays.equals(sources, that.sources);
+        return Objects.equals(customers, that.customers) && Objects.equals(employees, that.employees) && Objects.equals(projects, that.projects) && Objects.equals(sources, that.sources);
     }
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + Arrays.hashCode(customers);
-        result = 31 * result + Arrays.hashCode(employees);
-        result = 31 * result + Arrays.hashCode(projects);
-        result = 31 * result + Arrays.hashCode(sources);
-        return result;
+        return Objects.hash(super.hashCode(), customers, employees, projects, sources);
     }
 
     @Override
     public String toString() {
         return "ConstructionCompany{" +
-                "customers=" + Arrays.toString(customers) +
-                ", employees=" + Arrays.toString(employees) +
-                ", projects=" + Arrays.toString(projects) +
-                ", sources=" + Arrays.toString(sources) +
+                "customers=" + customers +
+                ", employees=" + employees +
+                ", projects=" + projects +
+                ", sources=" + sources +
                 '}';
     }
 }
