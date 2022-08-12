@@ -442,6 +442,10 @@ public class MainClass {
         for (Human driver : drivers) {
             LOGGER.info("Information about the driver: {} {} {} ", driver.getFirstName(), driver.getLastName(), driver.getDob());
         }
+        drivers.add(driver1);
+        for(Human isAdded : drivers){
+            LOGGER.info(isAdded);
+        }
 
         LOGGER.info("---------------------------------");
 
